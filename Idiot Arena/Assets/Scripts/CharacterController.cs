@@ -4,16 +4,18 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Globalization;
 
-public class PlayerController : MonoBehaviour
+public class CharacterController : MonoBehaviour
 {
-    public GameObject playerObject;
     public NavMeshAgent navMeshAgent;
 
     Camera cam;
 
     void Start()
     {
-        cam = playerObject.GetComponent<Player>().cameraHolder.GetComponent<Camera>();
+    }
+
+    public void Ready() {
+        cam = gameObject.GetComponent<Character>().cameraHolder.GetComponent<Camera>();
     }
 
     public void OnRightClick() {

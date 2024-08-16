@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class CameraManager : MonoBehaviour
 {
-    public GameObject playerObject;
+    GameObject playerObject;
     Transform playerTransform;
 
     public readonly Vector3 cameraStartPos = new Vector3(0, 10, -12);
@@ -23,40 +23,46 @@ public class CameraManager : MonoBehaviour
 
     void Start()
     {
-        playerTransform = playerObject.transform;
-        playerTransform = gameObject.transform.parent.GetChild(0).transform;
         
+    }
+    
+    public void Ready() {
+        playerObject = gameObject.transform.parent.GetComponent<PlayerNetworkManager>().playerObject;
+        playerTransform = playerObject.transform;
+
         followState = Following;
         gameObject.transform.position = cameraStartPos;
     }
-    
+
     void Update() {
+        CameraInputs();
         DoAction();
+    }
+
+    void CameraInputs() {
+        if (Input.GetKeyDown(KeyCode.Y)) {
+            FollowToggle();
+        }
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            SetSnapToPlayer();
+        }
+        else if (Input.GetKeyUp(KeyCode.Space)) {
+            StopSnapToPlayer();
+        }
     }
 
     private void DoAction() {
         followState();
     }
+    
+    #region Camera Follow States
+    private void Idle() {
 
-    public void FollowToggle() {
-        if (followState == Following) {
-            SetFreeCam();
-        }
-        else if (followState == FreeCam) {
-            SetFollowing();
-        }
-        else if (followState == SnapToPlayer) {
-            SetFreeCam();
-        }
     }
 
     private void Following() {
         gameObject.transform.position = EaseInOutMovement(gameObject.transform.position - cameraOffset, playerTransform.position) + cameraOffset;
         gameObject.transform.position = new Vector3(gameObject.transform.position.x, cameraStartPos.y, gameObject.transform.position.z);
-    }
-
-    private Vector3 EaseInOutMovement(Vector3 cameraPosition, Vector3 playerPosition) {
-        return Vector3.Lerp(cameraPosition, playerPosition, cameraSmoothing * Time.deltaTime);
     }
 
     private void FreeCam() {
@@ -79,6 +85,9 @@ public class CameraManager : MonoBehaviour
     private void SnapToPlayer() {
         Following();    
     }
+    #endregion
+
+    #region Sets
     public void StopSnapToPlayer() {
         if (previousState == null) {
             return;
@@ -104,7 +113,31 @@ public class CameraManager : MonoBehaviour
         followState = Following;
     }
 
+    public void SetIdle() {
+        followState = Idle;
+    }
+    #endregion
+
+
+    #region Misc
+    public void FollowToggle() {
+        if (followState == Following) {
+            SetFreeCam();
+        }
+        else if (followState == FreeCam) {
+            SetFollowing();
+        }
+        else if (followState == SnapToPlayer) {
+            SetFreeCam();
+        }
+    }
+
     public bool IsSnapping() {
         return followState == SnapToPlayer;
     }
+
+    private Vector3 EaseInOutMovement(Vector3 cameraPosition, Vector3 playerPosition) {
+        return Vector3.Lerp(cameraPosition, playerPosition, cameraSmoothing * Time.deltaTime);
+    }
+    #endregion
 }

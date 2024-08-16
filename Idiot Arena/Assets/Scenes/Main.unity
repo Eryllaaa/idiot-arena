@@ -300,11 +300,27 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 917450264598594393, guid: bf1f3bd931bea8f43a4ef121f975b18b, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 392750085
+      objectReference: {fileID: 0}
+    - target: {fileID: 917450264598594393, guid: bf1f3bd931bea8f43a4ef121f975b18b, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 2641450794
+      objectReference: {fileID: 0}
     - target: {fileID: 1395799163043039914, guid: bf1f3bd931bea8f43a4ef121f975b18b, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 1426427792
       objectReference: {fileID: 0}
     - target: {fileID: 1395799163043039914, guid: bf1f3bd931bea8f43a4ef121f975b18b, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 2641450794
+      objectReference: {fileID: 0}
+    - target: {fileID: 1863181488727895353, guid: bf1f3bd931bea8f43a4ef121f975b18b, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1017787438
+      objectReference: {fileID: 0}
+    - target: {fileID: 1863181488727895353, guid: bf1f3bd931bea8f43a4ef121f975b18b, type: 3}
       propertyPath: InScenePlacedSourceGlobalObjectIdHash
       value: 2641450794
       objectReference: {fileID: 0}

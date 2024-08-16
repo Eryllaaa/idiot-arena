@@ -81,6 +81,7 @@ public class Character : MonoBehaviour
 
     protected void SetAlive() {
         CurrentState = Alive;
+        inputManager.SetAlive();
     }
 
     public CharacterState GetCurrentState() {
@@ -89,5 +90,6 @@ public class Character : MonoBehaviour
 
     protected virtual void OnDeath() {
         CurrentState = Dead;
+        inputManager.SetDead();
     }
 }
